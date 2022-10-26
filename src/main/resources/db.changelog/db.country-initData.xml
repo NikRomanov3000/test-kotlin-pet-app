@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet context="legacy" author="n.romanov" id="insert initData to person table">
+        <insert tableName="country">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="China"/>
+            <column name="population" valueNumeric="1424733000"/>
+        </insert>
+        <insert tableName="country">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="USA"/>
+            <column name="population" valueNumeric="336023460"/>
+        </insert>
+        <insert tableName="country">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Russia"/>
+            <column name="population" valueNumeric="147190000"/>
+        </insert>
+        <insert tableName="country">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Germany"/>
+            <column name="population" valueNumeric="83349300"/>
+        </insert>
+        <insert tableName="country">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Italy"/>
+            <column name="population" valueNumeric="59236213"/>
+        </insert>
+        <insert tableName="country">
+            <column name="id" valueNumeric="6"/>
+            <column name="name" value="France"/>
+            <column name="population" valueNumeric="68959599"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

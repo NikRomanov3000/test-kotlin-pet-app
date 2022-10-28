@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.22")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

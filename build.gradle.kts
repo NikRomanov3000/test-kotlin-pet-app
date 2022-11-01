@@ -6,6 +6,16 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
+    checkstyle
+}
+
+checkstyle {
+    config = rootProject.resources.text.fromFile("/config/checkstyle/checkstyle.xml")
+    reportsDir = file("${buildDir}/report")
+    toolVersion = "10.4"
+    isIgnoreFailures = false
+    maxWarnings = 0
+    maxErrors = 0
 }
 
 group = "ru.rsu"
@@ -33,6 +43,15 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
+    }
+}
+
+tasks.withType<Checkstyle>().configureEach {
+    source = fileTree("src/main")
+    reports {
+        xml.required.set(false)
+        html.required.set(true)
+        html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-simple.xsl")
     }
 }
 

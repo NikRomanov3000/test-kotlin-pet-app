@@ -19,8 +19,6 @@ class SomeServiceImpl(
 
     private fun SomeEntity.toDto(): SomeEntityDto =
         SomeEntityDto(
-            id = this.id,
-            name = this.name,
-            population = this.population
+            id = this.id,name = this.name,population = this.population
         )
 }

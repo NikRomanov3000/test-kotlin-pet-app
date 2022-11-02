@@ -5,6 +5,7 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 class KotlinAppApplication
-    fun main(args: Array<String>) {
-        runApplication<KotlinAppApplication>(*args)
-    }
+
+fun main(args: Array<String>) {
+    runApplication<KotlinAppApplication>(args = args)
+}

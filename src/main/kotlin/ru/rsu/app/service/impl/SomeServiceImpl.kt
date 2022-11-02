@@ -11,14 +11,16 @@ import ru.rsu.app.service.SomeService
 class SomeServiceImpl(
     private val someEntityRepository: SomeEntityRepository
 ) : SomeService {
-    val DEAFULT_PAGE_SIZE = 2;
+    val defaultPageSize = 2;
     override fun getAll(pageIndex: Int): List<SomeEntityDto> {
-        return someEntityRepository.findByOrderByName(PageRequest.of(pageIndex,DEAFULT_PAGE_SIZE))
+        return someEntityRepository.findByOrderByName(PageRequest.of(pageIndex, defaultPageSize))
             .map { it.toDto() };
     }
 
     private fun SomeEntity.toDto(): SomeEntityDto =
         SomeEntityDto(
-            id = this.id,name = this.name,population = this.population
+            id = this.id,
+            name = this.name,
+            population = this.population
         )
 }

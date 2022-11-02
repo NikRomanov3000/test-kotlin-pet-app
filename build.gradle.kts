@@ -3,19 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.7.4"
     id("io.spring.dependency-management") version "1.0.14.RELEASE"
+    id("io.gitlab.arturbosch.detekt").version("1.21.0")
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
-    checkstyle
-}
-
-checkstyle {
-    config = rootProject.resources.text.fromFile("/config/checkstyle/checkstyle.xml")
-    reportsDir = file("${buildDir}/report")
-    toolVersion = "10.4"
-    isIgnoreFailures = false
-    maxWarnings = 0
-    maxErrors = 0
 }
 
 group = "ru.rsu"
@@ -39,19 +30,18 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
+detekt {
+    // Version of Detekt that will be used.
+    toolVersion = "1.21.0"
+
+    // The directories where detekt looks for source files.
+    source = files("src/main/java", "src/main/kotlin")
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
-    }
-}
-
-tasks.withType<Checkstyle>().configureEach {
-    source = fileTree("src/main")
-    reports {
-        xml.required.set(false)
-        html.required.set(true)
-        html.stylesheet = resources.text.fromFile("config/xsl/checkstyle-simple.xsl")
     }
 }
 

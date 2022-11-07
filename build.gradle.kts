@@ -12,6 +12,7 @@ plugins {
 group = "ru.rsu"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -45,6 +46,12 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+tasks.jar {
+    archiveBaseName.set("testapp")
+    archiveFileName.set("testapp.jar")
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+

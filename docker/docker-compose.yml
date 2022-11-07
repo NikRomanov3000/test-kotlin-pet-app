@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  postgres:
+    build:
+      context: db
+      dockerfile: Dockerfile
+    command: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "~/.bash_history:/.bash_history"
+      - "/tmp:/tmp:delegated"
+  app:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    command: java -jar ./testapp.jar
+    ports:
+      - "8080:8080"
+    network_mode: host
+    volumes:
+      - "~/.bash_history:/.bash_history"
+      - "/tmp:/tmp:delegated"
+    depends_on:
+      - postgres

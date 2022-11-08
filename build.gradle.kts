@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.regex.Pattern.compile
 
 plugins {
+    application
     id("org.springframework.boot") version "2.7.4"
     id("io.spring.dependency-management") version "1.0.14.RELEASE"
     id("io.gitlab.arturbosch.detekt").version("1.21.0")
@@ -27,7 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.liquibase:liquibase-core")
-    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.postgresql:postgresql:42.5.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -46,9 +48,21 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.jar {
+tasks.withType<Jar> {
+    manifest.attributes("Main-Class" to "ru.rsu.app.KotlinAppApplicationKt")
     archiveBaseName.set("testapp")
     archiveFileName.set("testapp.jar")
+
+    // To avoid the duplicate handling strategy error
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // To add all of the dependencies
+    from(sourceSets.main.get().output)
+
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
 }
 
 tasks.withType<Test> {

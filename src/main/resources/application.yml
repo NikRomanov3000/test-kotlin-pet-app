@@ -1,0 +1,20 @@
+server:
+  port: '8080'
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+#DATABSE SETTINGS
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/kotlin-app
+    username: postgres
+    password: Tolstochok3000
+#JPA7 SETTINGS
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: none
+#LIUQUIBASE SETTINGS
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.xml

@@ -3,9 +3,13 @@ version: '3.3'
 services:
   postgres:
     build:
-      context: db
+      context: docker/db
       dockerfile: Dockerfile
     command: postgres
+    environment:
+      POSTGRES_DB: "kotlin-app"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Tolstochok3000"
     ports:
       - "5432:5432"
     volumes:
@@ -13,7 +17,7 @@ services:
       - "/tmp:/tmp:delegated"
   app:
     build:
-      context: app
+      context: .
       dockerfile: Dockerfile
     command: java -jar ./testapp.jar
     ports:

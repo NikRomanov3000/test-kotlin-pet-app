@@ -1,6 +1,23 @@
 version: '3.3'
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: java -jar ./testapp.jar
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://172.25.1.3:5432/kotlin-app
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Tolstochok3000
+    networks:
+      app-network:
+        ipv4_address: 172.25.1.2
+
   postgres:
     build:
       context: docker/db
@@ -12,28 +29,9 @@ services:
       POSTGRES_PASSWORD: "Tolstochok3000"
     ports:
       - "5432:5432"
-    volumes:
-      - "~/.bash_history:/.bash_history"
-      - "/tmp:/tmp:delegated"
-    networks:
-      app-network:
-        ipv4_address: 172.25.1.2
-    restart: always
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: java -jar ./testapp.jar
-    ports:
-      - "8080:8080"
-    volumes:
-      - "~/.bash_history:/.bash_history"
-      - "/tmp:/tmp:delegated"
     networks:
       app-network:
         ipv4_address: 172.25.1.3
-    depends_on:
-      - postgres
     restart: always
 networks:
   app-network:

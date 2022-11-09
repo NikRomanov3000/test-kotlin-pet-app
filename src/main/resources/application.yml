@@ -4,17 +4,20 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
-#DATABSE SETTINGS
+  #DATABSE SETTINGS
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/kotlin-app
-    username: postgres
-    password: Tolstochok3000
-#JPA7 SETTINGS
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/kotlin-app}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:Tolstochok3000}
+  #JPA SETTINGS
   jpa:
     show-sql: 'true'
     hibernate:
       ddl-auto: none
-#LIUQUIBASE SETTINGS
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  #LIUQUIBASE SETTINGS
   liquibase:
     change-log: classpath:db.changelog/db.changelog-master.xml

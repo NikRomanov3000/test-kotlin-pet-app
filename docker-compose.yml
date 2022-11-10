@@ -11,12 +11,9 @@ services:
     depends_on:
       - postgres
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://172.25.1.3:5432/kotlin-app
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/kotlin-app
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=Tolstochok3000
-    networks:
-      app-network:
-        ipv4_address: 172.25.1.2
 
   postgres:
     build:
@@ -29,12 +26,4 @@ services:
       POSTGRES_PASSWORD: "Tolstochok3000"
     ports:
       - "5432:5432"
-    networks:
-      app-network:
-        ipv4_address: 172.25.1.3
     restart: always
-networks:
-  app-network:
-    ipam:
-      config:
-        - subnet: 172.25.1.0/16
